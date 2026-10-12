@@ -1,1 +1,41 @@
-.intro,.stat>span,.progress-stat>div>span,.task-note{color:#626e5c}.stat small,.task-meta,.focus-panel p{color:#69765c}.focus-panel .eyebrow,#timer-state,.timer-reset{color:#667850}.quick-add{color:#687b57}.search input::placeholder{color:#69765c}.task-title{font-size:14px}.task-note,.task-meta{font-size:11px}.filters button{font-size:12px}.focus-panel p{font-size:12px}.local-note{color:#626e5c}.empty{color:#68735e}
+.intro,
+.stat > span,
+.progress-stat > div > span,
+.task-note {
+  color: #626e5c;
+}
+.stat small,
+.task-meta,
+.focus-panel p {
+  color: #69765c;
+}
+.focus-panel .eyebrow,
+#timer-state,
+.timer-reset {
+  color: #667850;
+}
+.quick-add {
+  color: #687b57;
+}
+.search input::placeholder {
+  color: #69765c;
+}
+.task-title {
+  font-size: 14px;
+}
+.task-note,
+.task-meta {
+  font-size: 11px;
+}
+.filters button {
+  font-size: 12px;
+}
+.focus-panel p {
+  font-size: 12px;
+}
+.local-note {
+  color: #626e5c;
+}
+.empty {
+  color: #68735e;
+}

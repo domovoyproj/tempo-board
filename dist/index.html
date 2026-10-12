@@ -1,13 +1,194 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f5f0"><meta name="description" content="Темпо — спокойное место для задач, планов и сосредоточенной работы."><title>Темпо — место для главного</title><link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./base.css"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./readability.css"></head>
-<body><a class="skip" href="#main">К содержимому</a><div class="shell">
-<aside class="sidebar"><a class="brand" href="./"><span class="brand-icon">t.</span>темпо<span class="brand-dot"></span></a><p class="workspace-label">ЛИЧНОЕ ПРОСТРАНСТВО</p><nav class="views" aria-label="Задачи"><button class="nav-item active" data-view="today"><span>◉</span> Мой день <b id="today-count">0</b></button><button class="nav-item" data-view="all"><span>▤</span> Все задачи <b id="all-count">0</b></button><button class="nav-item" data-view="done"><span>✓</span> Завершённые <b id="done-count">0</b></button></nav>
-<div class="side-note"><span class="note-star">✳</span><h3>Меньше шума.<br>Больше сделанного.</h3><p>Одна задача за раз —<br>уже хороший план.</p></div><div class="sidebar-bottom"><span class="avatar">Я</span><div>Моё пространство<small>Сохраняется на устройстве</small></div><span class="status-dot"></span></div></aside>
-<div class="page"><header class="topbar"><span id="date-label">Сегодня</span><div class="backup"><button class="button ghost" id="export">↓ Экспорт</button><button class="button ghost" id="import">↑ Импорт</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></header>
-<main id="main"><div class="heading"><div><p class="eyebrow">ВАШ ДЕНЬ, В ВАШЕМ ТЕМПЕ</p><h1 id="page-title">Место для <em>главного.</em></h1><p class="intro">Освободите голову. Соберите мысли в понятный план.</p></div><button class="button primary" id="new-task">＋ Новая задача</button></div>
-<section class="overview" aria-label="Прогресс"><div class="stat"><span>На сегодня</span><strong id="stat-planned">0</strong><small>задач в вашем плане</small></div><div class="stat"><span>Уже сделано</span><strong id="stat-done">0</strong><small>ещё один шаг вперёд</small></div><div class="stat progress-stat"><div><span>Прогресс дня</span><strong id="stat-percent">0<span>%</span></strong></div><div class="mini-progress"><i id="progress-fill"></i></div><small id="progress-caption">Начните с одной задачи</small></div></section>
-<div class="work-area"><section class="task-panel"><div class="section-heading"><h2 id="list-title">План на сегодня <span id="list-count">0</span></h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Найти задачу" aria-label="Найти задачу"></label></div><div class="filters" aria-label="Фильтр по приоритету"><button class="active" data-priority="all">Все</button><button data-priority="high">Важное</button><button data-priority="normal">Обычное</button><button data-priority="low">Без спешки</button></div><div id="tasks"></div><button class="quick-add" id="quick-add">＋ Добавить что-то важное</button></section>
-<aside class="focus-panel"><div class="focus-label"><span class="eyebrow">РЕЖИМ ФОКУСА</span><span class="live-dot"></span></div><h2>Время побыть<br><em>в потоке.</em></h2><p>Выберите задачу и уделите ей<br>немного полного внимания.</p><label class="sr-only" for="focus-task">Задача для фокуса</label><select id="focus-task"><option value="">Свободная сессия</option></select><div class="timer-circle"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="89" class="timer-track"/><circle cx="100" cy="100" r="89" id="timer-progress"/></svg><div><span id="timer">25:00</span><small id="timer-state">БЕЗ ОТВЛЕЧЕНИЙ</small></div></div><div class="timer-settings"><button data-duration="15">15 мин</button><button data-duration="25" class="active">25 мин</button><button data-duration="50">50 мин</button></div><button class="button focus-start" id="timer-toggle">Начать фокус →</button><button class="timer-reset" id="timer-reset">Сбросить таймер</button><p class="focus-foot">Тишина — тоже инструмент.</p></aside></div>
-<footer><span>Не обязательно успеть всё. Достаточно главного.</span><span>темпо © <span id="year"></span></span></footer></main></div></div>
-<dialog id="task-dialog" class="dialog"><div class="dialog-head"><h2 id="dialog-title">Новая задача</h2><button class="close" data-close aria-label="Закрыть">×</button></div><form id="task-form"><input id="task-id" type="hidden"><label class="field">Что нужно сделать?<input id="task-title" required maxlength="160" placeholder="Например, подготовить предложение" autocomplete="off"></label><div class="row"><label class="field">Когда<input id="task-date" type="date" required></label><label class="field">Приоритет<select id="task-priority"><option value="normal">Обычный</option><option value="high">Важное</option><option value="low">Без спешки</option></select></label></div><label class="field">Заметка<textarea id="task-note" maxlength="1000" placeholder="Ссылки, детали, мысли…"></textarea></label><button class="button primary" type="submit">Сохранить задачу</button></form></dialog>
-<div id="notice" class="notice" role="status" hidden></div><script type="module" src="./app.js"></script></body></html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f6f5f0" />
+    <meta
+      name="description"
+      content="Темпо — спокойное место для задач, планов и сосредоточенной работы."
+    />
+    <title>Темпо — место для главного</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./base.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./readability.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">К содержимому</a>
+    <div class="shell">
+      <aside class="sidebar">
+        <a class="brand" href="./"
+          ><span class="brand-icon">t.</span>темпо<span class="brand-dot"></span
+        ></a>
+        <p class="workspace-label">ЛИЧНОЕ ПРОСТРАНСТВО</p>
+        <nav class="views" aria-label="Задачи">
+          <button class="nav-item active" data-view="today">
+            <span>◉</span> Мой день <b id="today-count">0</b></button
+          ><button class="nav-item" data-view="all">
+            <span>▤</span> Все задачи <b id="all-count">0</b></button
+          ><button class="nav-item" data-view="done">
+            <span>✓</span> Завершённые <b id="done-count">0</b>
+          </button>
+        </nav>
+        <div class="side-note">
+          <span class="note-star">✳</span>
+          <h3>Меньше шума.<br />Больше сделанного.</h3>
+          <p>Одна задача за раз —<br />уже хороший план.</p>
+        </div>
+        <div class="sidebar-bottom">
+          <span class="avatar">Я</span>
+          <div>Моё пространство<small>Сохраняется на устройстве</small></div>
+          <span class="status-dot"></span>
+        </div>
+      </aside>
+      <div class="page">
+        <header class="topbar">
+          <span id="date-label">Сегодня</span>
+          <div class="backup">
+            <button class="button ghost" id="export">↓ Экспорт</button
+            ><button class="button ghost" id="import">↑ Импорт</button
+            ><input
+              id="import-file"
+              type="file"
+              accept="application/json,.json"
+              hidden
+            />
+          </div>
+        </header>
+        <main id="main">
+          <div class="heading">
+            <div>
+              <p class="eyebrow">ВАШ ДЕНЬ, В ВАШЕМ ТЕМПЕ</p>
+              <h1 id="page-title">Место для <em>главного.</em></h1>
+              <p class="intro">
+                Освободите голову. Соберите мысли в понятный план.
+              </p>
+            </div>
+            <button class="button primary" id="new-task">
+              ＋ Новая задача
+            </button>
+          </div>
+          <section class="overview" aria-label="Прогресс">
+            <div class="stat">
+              <span>На сегодня</span><strong id="stat-planned">0</strong
+              ><small>задач в вашем плане</small>
+            </div>
+            <div class="stat">
+              <span>Уже сделано</span><strong id="stat-done">0</strong
+              ><small>ещё один шаг вперёд</small>
+            </div>
+            <div class="stat progress-stat">
+              <div>
+                <span>Прогресс дня</span
+                ><strong id="stat-percent">0<span>%</span></strong>
+              </div>
+              <div class="mini-progress"><i id="progress-fill"></i></div>
+              <small id="progress-caption">Начните с одной задачи</small>
+            </div>
+          </section>
+          <div class="work-area">
+            <section class="task-panel">
+              <div class="section-heading">
+                <h2 id="list-title">
+                  План на сегодня <span id="list-count">0</span>
+                </h2>
+                <label class="search"
+                  ><span aria-hidden="true">⌕</span
+                  ><input
+                    id="search"
+                    type="search"
+                    placeholder="Найти задачу"
+                    aria-label="Найти задачу"
+                /></label>
+              </div>
+              <div class="filters" aria-label="Фильтр по приоритету">
+                <button class="active" data-priority="all">Все</button
+                ><button data-priority="high">Важное</button
+                ><button data-priority="normal">Обычное</button
+                ><button data-priority="low">Без спешки</button>
+              </div>
+              <div id="tasks"></div>
+              <button class="quick-add" id="quick-add">
+                ＋ Добавить что-то важное
+              </button>
+            </section>
+            <aside class="focus-panel">
+              <div class="focus-label">
+                <span class="eyebrow">РЕЖИМ ФОКУСА</span
+                ><span class="live-dot"></span>
+              </div>
+              <h2>Время побыть<br /><em>в потоке.</em></h2>
+              <p>Выберите задачу и уделите ей<br />немного полного внимания.</p>
+              <label class="sr-only" for="focus-task">Задача для фокуса</label
+              ><select id="focus-task">
+                <option value="">Свободная сессия</option>
+              </select>
+              <div class="timer-circle">
+                <svg viewBox="0 0 200 200" aria-hidden="true">
+                  <circle cx="100" cy="100" r="89" class="timer-track" />
+                  <circle cx="100" cy="100" r="89" id="timer-progress" />
+                </svg>
+                <div>
+                  <span id="timer">25:00</span
+                  ><small id="timer-state">БЕЗ ОТВЛЕЧЕНИЙ</small>
+                </div>
+              </div>
+              <div class="timer-settings">
+                <button data-duration="15">15 мин</button
+                ><button data-duration="25" class="active">25 мин</button
+                ><button data-duration="50">50 мин</button>
+              </div>
+              <button class="button focus-start" id="timer-toggle">
+                Начать фокус →</button
+              ><button class="timer-reset" id="timer-reset">
+                Сбросить таймер
+              </button>
+              <p class="focus-foot">Тишина — тоже инструмент.</p>
+            </aside>
+          </div>
+          <footer>
+            <span>Не обязательно успеть всё. Достаточно главного.</span
+            ><span>темпо © <span id="year"></span></span>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <dialog id="task-dialog" class="dialog">
+      <div class="dialog-head">
+        <h2 id="dialog-title">Новая задача</h2>
+        <button class="close" data-close aria-label="Закрыть">×</button>
+      </div>
+      <form id="task-form">
+        <input id="task-id" type="hidden" /><label class="field"
+          >Что нужно сделать?<input
+            id="task-title"
+            required
+            maxlength="160"
+            placeholder="Например, подготовить предложение"
+            autocomplete="off"
+        /></label>
+        <div class="row">
+          <label class="field"
+            >Когда<input id="task-date" type="date" required /></label
+          ><label class="field"
+            >Приоритет<select id="task-priority">
+              <option value="normal">Обычный</option>
+              <option value="high">Важное</option>
+              <option value="low">Без спешки</option>
+            </select></label
+          >
+        </div>
+        <label class="field"
+          >Заметка<textarea
+            id="task-note"
+            maxlength="1000"
+            placeholder="Ссылки, детали, мысли…"
+          ></textarea></label
+        ><button class="button primary" type="submit">Сохранить задачу</button>
+      </form>
+    </dialog>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

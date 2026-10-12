@@ -1,1 +1,8 @@
-{"private":true,"type":"module","scripts":{"test":"node --test tests/*.test.js","start":"node server.mjs"}}
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node server.mjs"
+  }
+}
